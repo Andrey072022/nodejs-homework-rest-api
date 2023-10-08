@@ -5,21 +5,26 @@ import { handlSaveError, runValidateAtUpdate } from "./hooks.js";
 const contactSchema = new Schema({
     name: {
         type: String,
-        require: [true, "missing required 'name' field"],
+        require: [true, "Set name for contact"],
     },
    
     email: {
         type: String,
-        require: [true, "missing required 'email' field"],
+        require: [true, "Set email for contact"],
     },
     phone: {
         type: String,
-        require: [true, "missing required 'phone' field"],
+        require: [true, "Set phone for contact"],
     },
     favorite: {
         type: Boolean,
         default: false,
-    }
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        required: true,
+      },
 }, {versionKey: false, timestamps:true});
 
 contactSchema.post("save", handlSaveError)
