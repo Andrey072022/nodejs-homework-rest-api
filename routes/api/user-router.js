@@ -7,9 +7,10 @@ import {
   getCurrent,
   logout,
   updateSubscription,
+  updateAvatar,
 } from "../../controllers/user/index.js";
 
-import { authenticate } from "../../middlewara/index.js";
+import { authenticate, upload, resizeImage  } from "../../middlewara/index.js";
 
 const authRouter = express.Router();
 
@@ -22,6 +23,8 @@ authRouter.get("/current", authenticate, getCurrent);
 authRouter.post("/logout", authenticate, logout);
 
 authRouter.patch("/", authenticate, validateBody(usersSchemas.userUpdateSubscriptionSchema), updateSubscription);
+
+authRouter.patch("/avatars", authenticate, upload.single("avatar"), resizeImage, updateAvatar);
 
 export default authRouter;
 
