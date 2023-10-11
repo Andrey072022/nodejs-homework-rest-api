@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-// import Joi from "joi";
 
 import { handlSaveError, runValidateAtUpdate } from "./hooks.js";
 
@@ -23,6 +22,13 @@ const userSchema = new Schema({
   },
   token: String,
   avatarURL: String,
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: {
+    type: String,
+  },
 }, { versionKey: false, timestamps: true });
 
 userSchema.post("save", handlSaveError)

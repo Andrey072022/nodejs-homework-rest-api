@@ -8,6 +8,8 @@ import {
   logout,
   updateSubscription,
   updateAvatar,
+  verify,
+  resendVerifyEmail,
 } from "../../controllers/user/index.js";
 
 import { authenticate, upload, resizeImage  } from "../../middlewara/index.js";
@@ -15,6 +17,10 @@ import { authenticate, upload, resizeImage  } from "../../middlewara/index.js";
 const authRouter = express.Router();
 
 authRouter.post("/register", validateBody(usersSchemas.userSignupSchema), register);
+
+authRouter.get("/verify/:verificationToken", verify);
+
+authRouter.post("/verify", validateBody(usersSchemas.userEmailSchema), resendVerifyEmail);
 
 authRouter.post("/login", validateBody(usersSchemas.userSigninSchema), login);
 
